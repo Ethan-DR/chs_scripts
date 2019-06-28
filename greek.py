@@ -27,8 +27,8 @@ def main():
 			rank = 1
 			# moves milestone to inside overarching div
 			milestone = root.find("text").find("body").find("milestone")
-			print(milestone)
-			if milestone:
+			# if there are milestone issues revert this condition to just if milestone:
+			if milestone is not None:
 				root.find("text").find("body").find("div1").insert(0, milestone)
 				root.find("text").find("body").remove(milestone)
 			# moves secondary divs into overarching div
@@ -49,7 +49,7 @@ def main():
 			# MUST CHANGE THE TITLE MANUALLY AND
 
 			# removes <title type="sub">Machine readable text</title>
-			# determins editor and therefore if to tag notes as latin or eng
+			# determines editor and therefore if to tag notes as lat or eng
 			if x.tag == "titleStmt":
 				for element in x.iter():
 					if element.text == "Machine readable text":
