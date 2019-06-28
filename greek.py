@@ -160,7 +160,7 @@ def main():
 				pb1.set("xml:id",pba)
 				x.insert(0,pb1)
 
-			# getting div1 to div adding attributes and moving pb tag and moving milestone
+			# getting div1 to div adding attributes
 			# MUST MANUALLY DO MILESTONE. IF PREFER TO JUST DO THE <> THEN UNCOMMENT BELOW
 			if x.tag == "div1":
 				x.tag = "div"
@@ -176,11 +176,12 @@ def main():
 				# initialp.text = "<milestone unit=\"".encode('utf-8') + q.attrib["unit"] + "\" id=\"" + q.attrib["id"] + "\" n=\"" + q.attrib["n"] + "\"/> " + initialp.text
 				# del q.tag
 
-			# getting div2 attribute and moving milestone
+			# getting div2 attribute and adding indent to first p tag
 			if x.tag == "div2":
 				x.tag = "div"
 				x.set("subtype", "section")
 				x.set("type", "textpart")
+				x.find("p").set("rend", "indent")
 				
 				
 			# changing lang to xml:lang
