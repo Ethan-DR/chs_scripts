@@ -7,6 +7,7 @@ import unittest
 def main():
 	EngInfo = []
 	GrcInfo = []
+	notelang = ""
 	index = 0
 	for file in sys.argv[1:]:
 		tree = ET.parse("/users/intern4/desktop/perseus_files_to_be_added/" + file)
@@ -26,8 +27,10 @@ def main():
 			rank = 1
 			# moves milestone to inside overarching div
 			milestone = root.find("text").find("body").find("milestone")
-			root.find("text").find("body").find("div1").insert(0, milestone)
-			root.find("text").find("body").remove(milestone)
+			print(milestone)
+			if milestone:
+				root.find("text").find("body").find("div1").insert(0, milestone)
+				root.find("text").find("body").remove(milestone)
 			# moves secondary divs into overarching div
 			for d2 in root.find("text").find("body").findall("div2"):
 				root.find("text").find("body").find("div1").insert(rank, d2)
@@ -43,12 +46,28 @@ def main():
 			if x.tag == "teiHeader":
 				x.set("xml:lang","eng")
 
-			# MUST CHANGE THE TITLE MANUALLY AND COMMENT OUT SUB TITLE MANUALLY
+			# MUST CHANGE THE TITLE MANUALLY AND
+
+			# removes <title type="sub">Machine readable text</title>
+			# determins editor and therefore if to tag notes as latin or eng
+			if x.tag == "titleStmt":
+				for element in x.iter():
+					if element.text == "Machine readable text":
+						x.remove(element)
+					if element.tag == "editor":
+						if element.text[-11:] == "Bernardakis":
+							notelang = "lat"
+						if element.text[-7:] == "Babbitt":
+							notelang = "eng"
 
 			# removing n from author
 			if x.tag == "author":
+				print("found author")
+				print(x.attrib)
 				if x.attrib:
+					print("test")
 					del x.attrib["n"]
+
 
 			# changing names
 			if x.tag == "respStmt":
@@ -204,6 +223,8 @@ def main():
 			# changing notes
 			if x.tag == "note":
 				x.set("anchored","true")
+				if notelang != "":
+					x.set("xml:lang", notelang)
 
 			# changing gap
 			if x.tag == "gap":

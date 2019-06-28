@@ -24,7 +24,6 @@ Copy and paste purple
 <?xml-model href="http://www.stoa.org/epidoc/schema/latest/tei-epidoc.rng"
 schematypens="http://relaxng.org/ns/structure/1.0"?>
 Change the <title> to greek and add in a lang tag 
-Comment out/delete the <title type="sub">
 Check that the date at the end of <imprint> is not in Roman numerals
 Add url to ref element at the end of <biblStruct> 
 In the first refsDecl comment out the state elements
