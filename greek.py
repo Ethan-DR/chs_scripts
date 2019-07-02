@@ -57,7 +57,7 @@ def main():
 					if element.tag == "editor":
 						if element.text[-11:] == "Bernardakis":
 							notelang = "lat"
-							# u is to make sure the string is unicode
+							# u is to make sure the string is unicode. Changes Bernardakis to the correct spelling
 							element.text = u"Grēgorios N. Vernardakēs"
 						if element.text[-7:] == "Babbitt":
 							notelang = "eng"
@@ -90,6 +90,9 @@ def main():
 			if x.tag == "biblStruct":
 				analytic = x.find("analytic")
 				x.remove(analytic)
+				if x.find("monogr").find("editor").text[-11:] == "Bernardakis":
+					# u is to make sure the string is unicode. Changes Bernardakis to the correct spelling
+					x.find("monogr").find("editor").text = u"Grēgorios N. Vernardakēs"
 
 
 			# adding release date
