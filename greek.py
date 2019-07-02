@@ -57,6 +57,8 @@ def main():
 					if element.tag == "editor":
 						if element.text[-11:] == "Bernardakis":
 							notelang = "lat"
+							# u is to make sure the string is unicode
+							element.text = u"Grēgorios N. Vernardakēs"
 						if element.text[-7:] == "Babbitt":
 							notelang = "eng"
 
