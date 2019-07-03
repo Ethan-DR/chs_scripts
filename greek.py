@@ -10,7 +10,7 @@ def main():
 	notelang = ""
 	index = 0
 	for file in sys.argv[1:]:
-		tree = ET.parse("/users/intern4/desktop/perseus_files_to_be_added/" + file)
+		tree = ET.parse("/users/intern4/desktop/perseus_files_to_be_added/python_testing/" + file)
 		root = tree.getroot()
 		TEI = "{http://www.tei-c.org/ns/1.0}"
 		for header in tree.iter("teiHeader"):
@@ -90,9 +90,10 @@ def main():
 			if x.tag == "biblStruct":
 				analytic = x.find("analytic")
 				x.remove(analytic)
-				if x.find("monogr").find("editor").text[-11:] == "Bernardakis":
-					# u is to make sure the string is unicode. Changes Bernardakis to the correct spelling
-					x.find("monogr").find("editor").text = u"Grēgorios N. Vernardakēs"
+				if x.find("monogr").find("editor") is not None:
+					if x.find("monogr").find("editor").text[-11:] == "Bernardakis":
+						# u is to make sure the string is unicode. Changes Bernardakis to the correct spelling
+						x.find("monogr").find("editor").text = u"Grēgorios N. Vernardakēs"
 
 
 			# adding release date
