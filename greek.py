@@ -97,7 +97,9 @@ def main():
 						# u is to make sure the string is unicode. Changes Bernardakis to the correct spelling
 						x.find("monogr").find("editor").text = u"Grēgorios N. Vernardakēs"
 				if x.find("monogr").find("imprint").find("date") is not None:
-					x.find("monogr").find("imprint").find("date").set("type", "printing")
+					year = int(x.find("monogr").find("imprint").find("date").text)
+					if year > 1922:
+						x.find("monogr").find("imprint").find("date").set("type", "printing")
 
 
 			# adding release date
