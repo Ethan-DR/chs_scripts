@@ -10,7 +10,7 @@ def main():
 	notelang = ""
 	index = 0
 	for file in sys.argv[1:]:
-		tree = ET.parse("/users/intern4/desktop/perseus_files_to_be_added/python_testing/" + file)
+		tree = ET.parse("/users/intern4/desktop/perseus_files_to_be_added/" + file)
 		root = tree.getroot()
 		TEI = "{http://www.tei-c.org/ns/1.0}"
 		for header in tree.iter("teiHeader"):
@@ -59,7 +59,9 @@ def main():
 							notelang = "lat"
 							# u is to make sure the string is unicode. Changes Bernardakis to the correct spelling
 							element.text = u"Grēgorios N. Vernardakēs"
+							# gets rid of n = Loeb and changes the note lang
 						if element.text[-7:] == "Babbitt":
+							del element.attrib["n"]
 							notelang = "eng"
 
 			# removing n from author
@@ -94,6 +96,8 @@ def main():
 					if x.find("monogr").find("editor").text[-11:] == "Bernardakis":
 						# u is to make sure the string is unicode. Changes Bernardakis to the correct spelling
 						x.find("monogr").find("editor").text = u"Grēgorios N. Vernardakēs"
+				if x.find("monogr").find("imprint").find("date") is not None:
+					x.find("monogr").find("imprint").find("date").set("type", "printing")
 
 
 			# adding release date
